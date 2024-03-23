@@ -15,7 +15,8 @@ resource "aws_subnet" "acme_subnet" {
 
 resource "aws_launch_template" "template" {
   name_prefix     = "acme_launch_template"
-  image_id        = "ami-0c54bf137edcd738a" #bitnami-wordpress-6.4.3-7-r168-linux-debian-12-x86_64-hvm-ebs-nami
+  #image_id        = "ami-0c54bf137edcd738a" #bitnami-wordpress-6.4.3-7-r168-linux-debian-12-x86_64-hvm-ebs-nami
+  image_id        = var.acme_ami 
   instance_type   = "t2.micro"
 }
 
