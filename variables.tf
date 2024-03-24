@@ -7,3 +7,8 @@ variable "ec2_type" {
   type = string
   default = "t2.micro"
 }
+
+variable "business_zone" {
+  type = string
+  default = "acme_us"
+}
