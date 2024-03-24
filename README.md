@@ -1,6 +1,6 @@
 # ACME Corp
 
-Demo 
+Demo for ACME Corp
 
 ## Installation
 
@@ -17,6 +17,7 @@ With this Demo you can see in action the capabilities of Terraform Cloud such as
 - Workspaces
 - Variables & Variables Sets
 - State files storage and tracking
+- Runs Monitorings
 - Push Notifications
 - Run Triggers to chain Workspaces
 
