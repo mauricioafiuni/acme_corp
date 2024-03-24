@@ -3,7 +3,7 @@ resource "aws_lb" "acme_alb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.acme_alb_sg.id]
-  subnets            = [aws_subnet.acme_subnet.id]
+  subnets            = [aws_subnet.acme_subnet1.id, aws_subnet.acme_subnet2.id]
 
   tags = {
     Name = "acme-alb"
