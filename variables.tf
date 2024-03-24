@@ -12,3 +12,8 @@ variable "business_zone" {
   type = string
   default = "acme_us"
 }
+
+variable "region" {
+  type = string
+  default = "us-east-1"
+}
