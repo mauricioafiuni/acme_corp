@@ -111,13 +111,14 @@ resource "aws_instance" "acme_app" {
     business_zone = var.business_zone
   }
 
-user_data = <<-EOF
-              #!/bin/bash
-              sudo dnf install -y httpd
-              sudo systemctl start httpd
-              sudo mkdir /var/www/html/subdirectory
-              sudo echo "<html><body><h1>ACME Corp APP located at $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/.$//')</h1></body></html>" > /var/www/html/subdirectory/index.html
-              EOF
+user_data = <<EOF
+#!/bin/bash
+yum update -y
+yum install -y httpd.x86_64
+systemctl start httpd.service
+systemctl enable httpd.service
+sudo echo "<html><body><h1>ACME Corp APP located at $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/.$//')</h1></body></html>" > /var/www/html/index.html
+EOF
 
   vpc_security_group_ids = [aws_security_group.acme_sg.id]
 }
