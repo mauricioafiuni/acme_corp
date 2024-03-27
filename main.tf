@@ -87,19 +87,11 @@ resource "aws_security_group" "acme_sg" {
   description = "Security group for EC2 instance acme_app"
   vpc_id      = aws_vpc.acme_vpc.id
 
-  # Allow inbound HTTP traffic
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
   # Allow all inbound traffic
   ingress {
-    from_port   = -1
-    to_port     = -1
-    protocol    = "tcp"
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
   }
 
