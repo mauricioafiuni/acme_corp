@@ -83,7 +83,7 @@ resource "aws_route_table_association" "public_subnet_association" {
 
 # Launch an EC2 instance in the public subnet
 resource "aws_instance" "acme_app" {
-   ami             = var.acme_ami
+  ami             = var.acme_ami
   instance_type   = var.ec2_type
   key_name      = var.key_pem
   subnet_id     = aws_subnet.acme_subnet.id
