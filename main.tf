@@ -86,8 +86,7 @@ resource "aws_instance" "acme_app" {
   ami             = var.acme_ami
   instance_type   = var.ec2_type
   key_name      = var.key_pem
-  subnet_id     = aws_subnet.acme_subnet.id
-
+  
   tags = {
     Name          = var.business_zone
     business_zone = var.business_zone
