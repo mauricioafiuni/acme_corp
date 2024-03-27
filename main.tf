@@ -105,7 +105,7 @@ resource "aws_instance" "acme_app" {
 resource "aws_security_group" "acme_sg" {
   name        = "acme_app_ec2_sg"
   description = "Security group for EC2 instance acme_app"
-  vpc_id      = aws_vpc.acme_vpc
+  vpc_id      = aws_vpc.acme_vpc.id
 
   # Allow inbound HTTP traffic
   ingress {
