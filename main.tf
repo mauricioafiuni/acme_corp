@@ -105,7 +105,7 @@ resource "aws_instance" "acme_app" {
   instance_type   = var.ec2_type
   key_name      = var.key_pem
   associate_public_ip_address = true
-  
+  subnet_id = aws_subnet.acme_subnet.id
   tags = {
     Name          = var.business_zone
     business_zone = var.business_zone
