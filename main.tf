@@ -97,7 +97,7 @@ resource "aws_instance" "acme_app" {
               echo "<html><body><h1>ACME Corp APP located at $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/.$//')</h1></body></html>" > /var/www/html/index.html
               EOF
 
-  security_groups = [aws_security_group.acme_sg.name]
+  vpc_security_group_ids = [aws_security_group.acme_sg.id]
 }
 
 # Create a security group for the EC2 instance
