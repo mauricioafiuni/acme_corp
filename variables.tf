@@ -1,6 +1,8 @@
 variable "acme_ami" {
   type = string
-  default = "ami-0c101f26f147fa7fd"
+  #default = "ami-0c101f26f147fa7fd" #amazon linux
+  default = "ami-0c54bf137edcd738a" #Bitnami
+  
 }
 
 variable "ec2_type" {

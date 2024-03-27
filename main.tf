@@ -89,7 +89,7 @@ resource "aws_instance" "acme_app" {
   subnet_id     = aws_subnet.acme_subnet.id
 
   tags = {
-    Name          = "acme_ec2_instance"
+    Name          = var.business_zone
     business_zone = var.business_zone
   }
 
@@ -98,5 +98,21 @@ resource "aws_instance" "acme_app" {
               echo "<html><body><h1>ACME Corp APP located at $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/.$//')</h1></body></html>" > /var/www/html/index.html
               EOF
 
-  # Additional configuration like security groups, IAM role, etc. can be added here
+  security_groups = [aws_security_group.acme_app_ec2_sg.name]
+}
+
+# Create a security group for the EC2 instance
+resource "aws_security_group" "ec2_sg" {
+  name        = "acme_app_ec2_sg"
+  description = "Security group for EC2 instance acme_app"
+  vpc_id      = aws_vpc.acme_vpc
+
+  # Allow inbound HTTP traffic
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 }
