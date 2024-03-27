@@ -113,7 +113,7 @@ resource "aws_instance" "acme_app" {
 
 user_data = <<-EOF
               #!/bin/bash
-              sudo yum install httpd -y
+              sudo dnf install -y httpd
               sudo systemctl start httpd
               sudo mkdir /var/www/html/subdirectory
               sudo echo "<html><body><h1>ACME Corp APP located at $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/.$//')</h1></body></html>" > /var/www/html/subdirectory/index.html
