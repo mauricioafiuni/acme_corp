@@ -17,3 +17,8 @@ variable "region" {
   type = string
   default = "us-east-1"
 }
+
+variable "key_pem" {
+  type = string
+  default = "acme_key_us"
+}
