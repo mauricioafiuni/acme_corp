@@ -60,12 +60,6 @@ resource "aws_internet_gateway" "acme_igw" {
   }
 }
 
-# Attach the internet gateway to the VPC
-resource "aws_vpc_attachment" "acme_igw_attachment" {
-  vpc_id             = aws_vpc.acme_vpc.id
-  internet_gateway_id = aws_internet_gateway.acme_igw.id
-}
-
 # Create a route table for public internet access
 resource "aws_route_table" "public_route_table" {
   vpc_id = aws_vpc.acme_vpc.id
