@@ -86,6 +86,7 @@ resource "aws_instance" "acme_app" {
   ami             = var.acme_ami
   instance_type   = var.ec2_type
   key_name      = var.key_pem
+  associate_public_ip_address = true
   
   tags = {
     Name          = var.business_zone
