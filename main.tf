@@ -95,6 +95,14 @@ resource "aws_security_group" "acme_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # Allow all outboaund traffic
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 }
 
 
@@ -111,14 +119,14 @@ resource "aws_instance" "acme_app" {
     business_zone = var.business_zone
   }
 
-#user_data = <<EOF
-##!/bin/bash
-#sudo yum update -y
-#sudo yum install -y httpd.x86_64
-#systemctl start httpd.service
-#systemctl enable httpd.service
-#sudo echo "<html><body><h1>ACME Corp APP located at $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/.$//')</h1></body></html>" > /var/www/html/index.html
-#EOF
+user_data = <<EOF
+#!/bin/bash
+sudo yum update -y
+sudo yum install -y httpd.x86_64
+systemctl start httpd.service
+systemctl enable httpd.service
+sudo echo "<html><body><h1>ACME Corp APP located at $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/.$//')</h1></body></html>" > /var/www/html/index.html
+EOF
 
   vpc_security_group_ids = [aws_security_group.acme_sg.id]
 }
