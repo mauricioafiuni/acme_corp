@@ -98,11 +98,11 @@ resource "aws_instance" "acme_app" {
               echo "<html><body><h1>ACME Corp APP located at $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/.$//')</h1></body></html>" > /var/www/html/index.html
               EOF
 
-  security_groups = [aws_security_group.acme_app_ec2_sg.name]
+  security_groups = [aws_security_group.acme_sg.name]
 }
 
 # Create a security group for the EC2 instance
-resource "aws_security_group" "ec2_sg" {
+resource "aws_security_group" "acme_sg" {
   name        = "acme_app_ec2_sg"
   description = "Security group for EC2 instance acme_app"
   vpc_id      = aws_vpc.acme_vpc
