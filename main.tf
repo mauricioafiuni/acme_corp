@@ -81,6 +81,24 @@ resource "aws_route_table_association" "public_subnet_association" {
   route_table_id = aws_route_table.public_route_table.id
 }
 
+# Create a security group for the EC2 instance
+resource "aws_security_group" "acme_sg" {
+  name        = "acme_app_ec2_sg"
+  description = "Security group for EC2 instance acme_app"
+  vpc_id      = aws_vpc.acme_vpc.id
+
+  # Allow inbound HTTP traffic
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+}
+
+
+
 # Launch an EC2 instance in the public subnet
 resource "aws_instance" "acme_app" {
   ami             = var.acme_ami
@@ -99,20 +117,4 @@ resource "aws_instance" "acme_app" {
               EOF
 
   vpc_security_group_ids = [aws_security_group.acme_sg.id]
-}
-
-# Create a security group for the EC2 instance
-resource "aws_security_group" "acme_sg" {
-  name        = "acme_app_ec2_sg"
-  description = "Security group for EC2 instance acme_app"
-  vpc_id      = aws_vpc.acme_vpc.id
-
-  # Allow inbound HTTP traffic
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
 }
