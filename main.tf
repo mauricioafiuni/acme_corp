@@ -1,34 +1,9 @@
-#resource "aws_instance" "acme_app" {
-#  ami             = var.acme_ami
-#  instance_type   = var.ec2_type
-#
-# tags = {
-#    Name = var.business_zone
-#  }
-#}
-
 #resource "aws_instance" "import_demo" {
 #  ami             = "ami-0c101f26f147fa7fd"
 #  instance_type   = var.ec2_type
 #}
 
-#resource "aws_instance" "acme_app" {
-#  ami             = var.acme_ami
-#  instance_type   = var.ec2_type
-#  key_name      = var.key_pem  
-#  
-#  tags = {
-#    Name = var.business_zone
-#  }
-#
-#  user_data = <<-EOF
-#              #!/bin/bash
-#              echo "<html><body><h1>This instance is located in $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/.$//')</h1></body></html>" > /var/www/html/index.html
-#              EOF
-#}
-
-
-# Create a VPC for ACME app
+# Create ACME VPC
 resource "aws_vpc" "acme_vpc" {
   cidr_block = "10.0.0.0/16"
 
@@ -38,7 +13,7 @@ resource "aws_vpc" "acme_vpc" {
   }
 }
 
-# Create a public subnet within the ACME VPC
+# Create ACME VPC subnet inside ACME VPC
 resource "aws_subnet" "acme_subnet" {
   vpc_id                  = aws_vpc.acme_vpc.id
   cidr_block              = "10.0.1.0/24"
@@ -50,7 +25,7 @@ resource "aws_subnet" "acme_subnet" {
   }
 }
 
-# Create an internet gateway
+# Create internet gateway
 resource "aws_internet_gateway" "acme_igw" {
   vpc_id = aws_vpc.acme_vpc.id
 
@@ -60,7 +35,7 @@ resource "aws_internet_gateway" "acme_igw" {
   }
 }
 
-# Create a route table for public internet access
+# Create route table
 resource "aws_route_table" "public_route_table" {
   vpc_id = aws_vpc.acme_vpc.id
 
@@ -75,13 +50,13 @@ resource "aws_route_table" "public_route_table" {
   }
 }
 
-# Associate the public subnet with the public route table
+# Associate subnet with the route table
 resource "aws_route_table_association" "public_subnet_association" {
   subnet_id      = aws_subnet.acme_subnet.id
   route_table_id = aws_route_table.public_route_table.id
 }
 
-# Create a security group for the EC2 instance
+# Create a security group for the EC2 ACME app
 resource "aws_security_group" "acme_sg" {
   name        = "acme_app_ec2_sg"
   description = "Security group for EC2 instance acme_app"
@@ -107,7 +82,7 @@ resource "aws_security_group" "acme_sg" {
 
 
 
-# Launch an EC2 instance in the public subnet
+# Create ACME app EC2 instance
 resource "aws_instance" "acme_app" {
   ami             = var.acme_ami
   instance_type   = var.ec2_type
