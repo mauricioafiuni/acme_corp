@@ -102,7 +102,7 @@ systemctl start httpd.service
 systemctl enable httpd.service
 sudo chmod 777 /var/www/html/index.html
 TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
-sudo echo "<html><body><h1>ACME Corp APP located at $(curl http://169.254.169.254/latest/meta-data/placement/availability-zone -H "X-aws-ec2-metadata-token: $TOKEN" | sed 's/.$//')</h1><img src="https://static.wikia.nocookie.net/fictionalcompanies/images/c/c2/ACME_Corporation.png/revision/latest?cb=20230628025220" alt="ACME Corp Logo"></body></html>" > /var/www/html/index.html
+sudo echo "<html><body><h1>ACME Corp APP located at $(curl http://169.254.169.254/latest/meta-data/placement/availability-zone -H "X-aws-ec2-metadata-token: $TOKEN" | sed 's/.$//')</h1><img src="https://st2.depositphotos.com/2627021/7164/i/450/depositphotos_71640033-stock-photo-explosion-nuclear-bomb-in-ocean.jpg" alt="ACME Corp Logo"></body></html>" > /var/www/html/index.html
 EOF
 
   vpc_security_group_ids = [aws_security_group.acme_sg.id]
